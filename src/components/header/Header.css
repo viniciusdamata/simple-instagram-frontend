@@ -1,0 +1,15 @@
+#main-header {
+  background: #fff;
+  height: 10vh;
+  border: 1px solid #ddd;
+}
+#main-header .header-content {
+  width: 100vw;
+  max-width: 980px;
+  margin: 0 auto;
+  height: 72px;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
