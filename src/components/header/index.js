@@ -3,20 +3,20 @@ import { Link } from "react-router-dom";
 
 import logo from "../../assets/logo.svg";
 import camera from "../../assets/camera.svg";
-import "./Header.css";
-// import { Container } from './styles';
+
+import { MainHeader, HeaderContent } from "./styles";
 
 export default function Header() {
   return (
-    <header id="main-header">
-      <div className="header-content">
+    <MainHeader>
+      <HeaderContent>
         <Link to="/">
           <img src={logo} alt="instaRocket" />
         </Link>
         <Link to="/new">
           <img src={camera} alt="Enviar Publicação" />
         </Link>
-      </div>
-    </header>
+      </HeaderContent>
+    </MainHeader>
   );
 }

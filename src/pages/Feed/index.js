@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./Feed.css";
 
 import Card from "../../components/card";
+import { PostList } from "./styles";
 
 import img from "../../assets/img.jpg";
 
@@ -39,10 +39,10 @@ const posts = [
 
 export default function Feed() {
   return (
-    <section className="post-list">
+    <PostList>
       {posts.map((post) => (
         <Card {...post} key={post.id}></Card>
       ))}
-    </section>
+    </PostList>
   );
 }

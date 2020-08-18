@@ -6,8 +6,16 @@ import send from "../../assets/send.svg";
 import like from "../../assets/like.svg";
 import profilePicture from "../../assets/profile-picture.png";
 
-import "./Card.css";
+// import "./Card.css";
 
+import {
+  CardComponent,
+  CardHeader,
+  Col,
+  Row,
+  CardFooter,
+  Icon,
+} from "./styles";
 
 export default function Card({
   author,
@@ -18,29 +26,30 @@ export default function Card({
   likes,
 }) {
   return (
-    <article>
-      <header className="post-header">
-        <div className="user-info">
-          <img src={profilePicture} alt="" srcset="" />
-          <span>{author}</span>
-          <span className="place">{place}</span>
-        </div>
+    <CardComponent>
+      <CardHeader>
+        <Row>
+          <Icon src={profilePicture} alt="profile" />
+          <Col>
+            <span>{author}</span>
+            <strong className="place">{place}</strong>
+          </Col>
+        </Row>
         <img src={more} alt="mais" />
-      </header>
+      </CardHeader>
 
       <img className="post" src={image} alt="img" />
 
-      <footer>
-        <div className="actions">
-          <img src={like} alt="like" />
-          <img src={comment} alt="comment" />
-          <img src={send} alt="send" />
-        </div>
-        <div className="likes-comments">
+      <CardFooter>
+        <Icon src={like} onClick={() => console.log("deu like")} alt="like" />
+        <Icon src={comment} alt="comment" />
+        <Icon src={send} alt="send" />
+
+        <div>
           <strong>{likes} Curtidas</strong>
           <p>Um post massa da omnistack</p>
         </div>
-      </footer>
-    </article>
+      </CardFooter>
+    </CardComponent>
   );
 }
