@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { useDispatch } from "react-redux";
+
 import comment from "../../assets/comment.svg";
 import like from "../../assets/like.svg";
 import more from "../../assets/more.svg";
 import profilePicture from "../../assets/profile-picture.png";
 import send from "../../assets/send.svg";
-// import "./Card.css";
+
 import {
   CardComponent,
   CardFooter,
@@ -23,7 +25,14 @@ export default function Card({
   hashtags,
   image,
   likes,
+  id,
 }) {
+  const dispatch = useDispatch();
+
+  const handleLike = postId => {
+    dispatch({ type: "LIKE_POST", payload: { postId } });
+  };
+
   return (
     <CardComponent>
       <CardHeader>
@@ -40,7 +49,7 @@ export default function Card({
       <img className="post" src={image} alt="img" />
 
       <CardFooter>
-        <Icon src={like} onClick={() => console.log("deu like")} alt="like" />
+        <Icon src={like} onClick={() => handleLike(id)} alt="like" />
         <Icon src={comment} alt="comment" />
         <Icon src={send} alt="send" />
         <Col>

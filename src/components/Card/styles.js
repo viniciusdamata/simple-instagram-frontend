@@ -1,4 +1,5 @@
-/* eslint-disable */
+// eslint-disable-next-line
+import React from "react";
 import styled from "styled-components";
 
 export const CardComponent = styled.article`

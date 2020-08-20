@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import imgPlaceholder from "../../assets/imgplaceholder.png";
-import FormNew from "../../components/FormNew";
-import { PreviewImage } from "./styles";
-
+import {
+  PreviewImage,
+  FormNewPost,
+  UploadButton,
+  InputContainer,
+} from "./styles";
 
 export default function New() {
-  const hiddenFileInput = React.useRef(null);
+  //hooks
+  const hiddenFileInput = useRef(null);
+  const dispatch = useDispatch();
+  const [newPost, setNewPost] = useState({
+    author: "",
+    place: "",
+    description: "",
+    hashtags: "",
+    picture: "",
+  });
 
-  const [picture, setPicture] = useState("");
-
-  function onPictureUpload(e) {
-    console.log("onPictureUpload -> value", e.target.files[0]);
+  const onPictureUpload = e => {
     const newPicture = e.target.files[0];
-    setPicture(newPicture);
+    setNewPost({ ...newPost, picture: newPicture });
+    displayUploadedPicture(newPicture);
+  };
 
+  const displayUploadedPicture = newPicture => {
     if (FileReader && newPicture) {
       var fr = new FileReader();
       fr.onload = () => {
@@ -25,23 +38,35 @@ export default function New() {
     else {
       //Fallback upload
     }
-  }
+  };
 
   const handleClick = event => {
     hiddenFileInput.current.click();
   };
 
-  const handleChildChange = (e) =>{
-  console.log("consthandleChildChange -> e", e)
+  const handleCreateNewPost = (e) => {
+    e.preventDefault()
+    dispatch({
+      type: "CREATE_POST",
+      payload: {
+        newPost: { ...newPost, id: parseInt(Math.random() * 999) },
+      },
+    });
+  };
 
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setNewPost({ ...newPost, [name]: value });
   }
 
   return (
     <div>
-      <PreviewImage
-      onClick={handleClick}
-      >
-        <img id="upload-preview" src={picture || imgPlaceholder} alt="" />
+      <PreviewImage onClick={handleClick}>
+        <img
+          id="upload-preview"
+          src={newPost.picture || imgPlaceholder}
+          alt=""
+        />
       </PreviewImage>
       <input
         ref={hiddenFileInput}
@@ -52,8 +77,47 @@ export default function New() {
         onChange={onPictureUpload}
         capture="camera"
       ></input>
-      {/* <UploadButton onClick={handleClick}>Novo</UploadButton> */}
-      <FormNew handleChildChange={handleChildChange}/>
+      <div>
+        <FormNewPost action="">
+          <InputContainer>
+            <label htmlFor="">Autor:</label>
+            <input
+              type="text"
+              name="author"
+              placeholder="digite o nome do autor"
+              onChange={handleInputChange}
+            />
+          </InputContainer>
+          <InputContainer>
+            <label htmlFor="">Local:</label>
+            <input
+              type="text"
+              name="place"
+              placeholder="digite o local"
+              onChange={handleInputChange}
+            />
+          </InputContainer>
+          <InputContainer>
+            <label htmlFor="">Descricão:</label>
+            <input
+              type="text"
+              name="description"
+              placeholder="digite a descricao"
+              onChange={handleInputChange}
+            />
+          </InputContainer>
+          <InputContainer>
+            <label htmlFor="">Hashtags:</label>
+            <input
+              type="text"
+              name="hashtags"
+              placeholder="digite as hashtags"
+              onChange={handleInputChange}
+            />
+          </InputContainer>
+          <UploadButton onClick={handleCreateNewPost}>Salvar</UploadButton>
+        </FormNewPost>
+      </div>
     </div>
   );
 }

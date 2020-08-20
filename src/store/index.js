@@ -41,11 +41,18 @@ function reducer(state, action) {
       break;
     case "CREATE_POST":
       //Make request for creating the post
-      break;
+      return {
+        ...state,
+        posts: [...state.posts, action.payload.newPost]
+      }
 
     case "LIKE_POST":
-      //Make request to like the post
-      break;
+      return {
+        ...state,
+        posts: state.posts.map(post =>
+          post.id === action.payload.postId ? { ...post, likes: parseInt(post.likes + 1) } : post
+        ),
+      };
 
     default: {
       return state;

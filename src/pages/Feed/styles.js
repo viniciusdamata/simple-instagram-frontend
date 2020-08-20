@@ -1,4 +1,5 @@
-/* eslint-disable */
+// eslint-disable-next-line
+import React from "react";
 import styled from "styled-components";
 
 export const PostList = styled.section`
@@ -10,4 +11,3 @@ export const PostList = styled.section`
     flex-direction: column;
   }
 `;
-/* eslint-enable */
