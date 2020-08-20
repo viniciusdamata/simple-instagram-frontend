@@ -1,46 +1,14 @@
 import React from "react";
-
-
-import Card from "../../components/card";
+import { useSelector } from "react-redux";
+import Card from "../../components/Card";
 import { PostList } from "./styles";
 
-import img from "../../assets/img.jpg";
-
-const posts = [
-  {
-    id: 1,
-    author: "Teste",
-    place: "teste",
-    description: "teste",
-    hashtags: "teste",
-    image: img,
-    likes: 100,
-  },
-
-  {
-    id: 2,
-    author: "Teste",
-    place: "teste",
-    description: "teste",
-    hashtags: "teste",
-    image: img,
-    likes: 100,
-  },
-  {
-    id: 3,
-    author: "Teste",
-    place: "teste",
-    description: "teste",
-    hashtags: "teste",
-    image: img,
-    likes: 100,
-  },
-];
-
 export default function Feed() {
+  const posts = useSelector(state => state.posts);
+
   return (
     <PostList>
-      {posts.map((post) => (
+      {posts.map(post => (
         <Card {...post} key={post.id}></Card>
       ))}
     </PostList>

@@ -1,20 +1,19 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-
-import more from "../../assets/more.svg";
 import comment from "../../assets/comment.svg";
-import send from "../../assets/send.svg";
 import like from "../../assets/like.svg";
+import more from "../../assets/more.svg";
 import profilePicture from "../../assets/profile-picture.png";
-
+import send from "../../assets/send.svg";
 // import "./Card.css";
-
 import {
   CardComponent,
+  CardFooter,
   CardHeader,
   Col,
-  Row,
-  CardFooter,
+  Hashtag,
   Icon,
+  Row,
 } from "./styles";
 
 export default function Card({
@@ -44,10 +43,12 @@ export default function Card({
         <Icon src={like} onClick={() => console.log("deu like")} alt="like" />
         <Icon src={comment} alt="comment" />
         <Icon src={send} alt="send" />
-
+        <Col>
+          <Hashtag>{hashtags}</Hashtag>
+        </Col>
         <div>
           <strong>{likes} Curtidas</strong>
-          <p>Um post massa da omnistack</p>
+          <p>{description}</p>
         </div>
       </CardFooter>
     </CardComponent>
