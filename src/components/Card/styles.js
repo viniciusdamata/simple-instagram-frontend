@@ -3,19 +3,23 @@ import React from "react";
 import styled from "styled-components";
 
 export const CardComponent = styled.article`
-  max-width: 800px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   padding-top: 10px;
   padding-bottom: 20px;
   margin: 10px;
+  img{
+    max-height:400px;
+    max-width:600px;
+  }
 `;
 
 export const CardHeader = styled.header`
   display: flex;
   justify-content: space-between;
-  max-width: 800px;
+  max-width: 600px;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-left: 10px;

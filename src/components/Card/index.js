@@ -18,6 +18,8 @@ import {
   Row,
 } from "./styles";
 
+import {asyncLikePost} from "../../store/posts/actions"
+
 export default function Card({
   author,
   place,
@@ -30,7 +32,7 @@ export default function Card({
   const dispatch = useDispatch();
 
   const handleLike = postId => {
-    dispatch({ type: "ASYNC_LIKE_POST", payload: postId });
+    dispatch(asyncLikePost(postId));
   };
 
   return (

@@ -21,7 +21,7 @@ export const UploadButton = styled.button`
   height: 50px;
   width: 200px;
   font-size: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
   transition:ease 10ms;
 
   :hover {
@@ -42,13 +42,11 @@ export const FormNewPost = styled.form`
 
 export const InputContainer = styled.div`
   display: flex;
-  /* max-width:800px; */
-  width: 30%;
+  width: 300px;
   flex-direction: column;
   margin-bottom: 15px;
 
   label {
-    font-weight: bold;
     font-size: 20px;
     margin-bottom:5px;
   }
@@ -59,6 +57,5 @@ export const InputContainer = styled.div`
     border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     border-radius: 6px;
     font-size: 15px;
-    font-weight: bold;
   }
 `;

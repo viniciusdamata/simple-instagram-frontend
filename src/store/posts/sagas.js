@@ -1,5 +1,11 @@
-import { takeLatest, takeEvery, call, put, all } from "redux-saga/effects";
-import { fetchPosts, storePost, likePost } from "./actions";
+import { takeLatest, call, put, all } from "redux-saga/effects";
+import {
+  fetchPosts,
+  storePost,
+  storePostLoading,
+  storePostLoadingEnd,
+  likePost,
+} from "./actions";
 
 import { posts } from "../../services/posts.service";
 
@@ -24,7 +30,9 @@ function* likePostRequest(action) {
 
 function* storePostRequest(action) {
   try {
+    yield put(storePostLoading());
     const response = yield call(posts.store, action.payload);
+    yield put(storePostLoadingEnd());
     console.log("function*likePostRequest -> response", response);
     yield put(storePost(response.data));
   } catch (error) {

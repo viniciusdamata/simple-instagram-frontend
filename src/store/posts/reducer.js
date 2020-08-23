@@ -2,23 +2,37 @@ const INITIAL_STATE = {
   posts: [],
   isLoaded: false,
   error: null,
+  loadingSubmit: false,
 };
 
 function posts(state = INITIAL_STATE, action) {
   switch (action.type) {
     case "FETCH_POSTS":
-      console.log("posts -> action", action)
+      console.log("posts -> action", action);
       return {
         ...state,
         posts: action.payload,
         isLoaded: true,
         error: null,
       };
+
+    case "STORE_POST_LOADING":
+      return {
+        ...state,
+        loadingSubmit: true,
+      };
+
+    case "STORE_POST_LOADING_END":
+      return {
+        ...state,
+        loadingSubmit: false,
+      };
+
     case "STORE_POST":
       //Make request for creating the post
       return {
         ...state,
-        posts: [...state.posts, action.payload.data],
+        posts: [...state.posts, action.payload],
       };
 
     case "LIKE_POST":

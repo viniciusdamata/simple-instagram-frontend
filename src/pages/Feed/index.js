@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import Card from "../../components/Card";
-import { PostList } from "./styles";
+import { PostList, LoadingPosts } from "./styles";
+
+import { asyncFetchPosts } from "../../store/posts/actions";
 
 export default function Feed() {
   const dispatch = useDispatch();
@@ -9,7 +12,7 @@ export default function Feed() {
   const isLoaded = useSelector(state => state.posts.isLoaded);
 
   const fetchPosts = dispatch => {
-    dispatch({ type: "ASYNC_FETCH_POSTS" });
+    dispatch(asyncFetchPosts());
   };
 
   useEffect(() => {
@@ -25,6 +28,6 @@ export default function Feed() {
       </PostList>
     );
   } else {
-    return <div>Loading...</div>;
+    return <LoadingPosts>Loading...</LoadingPosts>;
   }
 }

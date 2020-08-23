@@ -1,6 +1,9 @@
 import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+
 import imgPlaceholder from "../../assets/imgplaceholder.png";
+
 import {
   PreviewImage,
   FormNewPost,
@@ -8,8 +11,11 @@ import {
   InputContainer,
 } from "./styles";
 
+import { asyncStorePost } from "../../store/posts/actions";
+
 export default function New() {
   //hooks
+  const history = useHistory()
   const hiddenFileInput = useRef(null);
   const dispatch = useDispatch();
   const [newPost, setNewPost] = useState({
@@ -19,6 +25,8 @@ export default function New() {
     hashtags: "",
     image: "",
   });
+
+  const storePostLoading = useSelector(state => state.posts.loadingSubmit);
 
   const onPictureUpload = e => {
     const newImage = e.target.files[0];
@@ -46,11 +54,16 @@ export default function New() {
 
   const handleCreateNewPost = e => {
     e.preventDefault();
-    console.log("New -> newPost", newPost)
-    dispatch({
-      type: "ASYNC_STORE_POST",
-      payload: newPost,
+    dispatch(asyncStorePost(newPost));
+    setNewPost({
+      author: "",
+      place: "",
+      description: "",
+      hashtags: "",
+      image: "",
     });
+    history.push("/")
+    
   };
 
   function handleInputChange(e) {
@@ -114,7 +127,9 @@ export default function New() {
               onChange={handleInputChange}
             />
           </InputContainer>
-          <UploadButton onClick={handleCreateNewPost}>Salvar</UploadButton>
+          <UploadButton onClick={handleCreateNewPost}>
+            {!storePostLoading ? "Salvar" : "Loading..."}
+          </UploadButton>
         </FormNewPost>
       </div>
     </div>
