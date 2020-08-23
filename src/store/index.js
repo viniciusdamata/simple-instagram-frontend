@@ -1,65 +1,30 @@
-import { createStore } from "redux";
-import img from "../assets/img.jpg";
+import { combineReducers, applyMiddleware, createStore, compose } from "redux";
+import createSagaMiddleware from "redux-saga";
 
-const INITIAL_STATE = {
-  posts: [
-    {
-      id: 1,
-      author: "Teste",
-      place: "teste",
-      description: "teste",
-      hashtags: "#teste #teste",
-      image: img,
-      likes: 100,
-    },
+import posts from "./posts/reducer";
+import { rootSagas } from "./rootSagas";
 
-    {
-      id: 2,
-      author: "Teste",
-      place: "teste",
-      description: "teste",
-      hashtags: "teste",
-      image: img,
-      likes: 100,
-    },
-    {
-      id: 3,
-      author: "Teste",
-      place: "teste",
-      description: "teste",
-      hashtags: "teste",
-      image: img,
-      likes: 100,
-    },
-  ],
-};
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [sagaMiddleware];
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "FETCH_POSTS":
-      //Make the api call to list all posts
-      break;
-    case "CREATE_POST":
-      //Make request for creating the post
-      return {
-        ...state,
-        posts: [...state.posts, action.payload.newPost]
-      }
+const composeEnhancers =
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
 
-    case "LIKE_POST":
-      return {
-        ...state,
-        posts: state.posts.map(post =>
-          post.id === action.payload.postId ? { ...post, likes: parseInt(post.likes + 1) } : post
-        ),
-      };
+const enhancer = composeEnhancers(
+  applyMiddleware(...middlewares)
+  // other store enhancers if any
+);
 
-    default: {
-      return state;
-    }
-  }
-}
+const rootReducer = combineReducers({
+  posts,
+});
 
-const store = createStore(reducer, INITIAL_STATE);
+const store = createStore(rootReducer, enhancer);
+
+sagaMiddleware.run(rootSagas);
 
 export default store;

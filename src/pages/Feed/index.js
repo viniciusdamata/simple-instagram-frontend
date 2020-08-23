@@ -1,16 +1,30 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Card from "../../components/Card";
 import { PostList } from "./styles";
 
 export default function Feed() {
-  const posts = useSelector(state => state.posts);
+  const dispatch = useDispatch();
+  const posts = useSelector(state => state.posts.posts);
+  const isLoaded = useSelector(state => state.posts.isLoaded);
 
-  return (
-    <PostList>
-      {posts.map(post => (
-        <Card {...post} key={post.id}></Card>
-      ))}
-    </PostList>
-  );
+  const fetchPosts = dispatch => {
+    dispatch({ type: "ASYNC_FETCH_POSTS" });
+  };
+
+  useEffect(() => {
+    fetchPosts(dispatch);
+  }, [dispatch]);
+
+  if (isLoaded) {
+    return (
+      <PostList>
+        {posts.map(post => (
+          <Card {...post} key={post._id}></Card>
+        ))}
+      </PostList>
+    );
+  } else {
+    return <div>Loading...</div>;
+  }
 }

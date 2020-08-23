@@ -25,12 +25,12 @@ export default function Card({
   hashtags,
   image,
   likes,
-  id,
+  _id,
 }) {
   const dispatch = useDispatch();
 
   const handleLike = postId => {
-    dispatch({ type: "LIKE_POST", payload: { postId } });
+    dispatch({ type: "ASYNC_LIKE_POST", payload: postId });
   };
 
   return (
@@ -49,7 +49,7 @@ export default function Card({
       <img className="post" src={image} alt="img" />
 
       <CardFooter>
-        <Icon src={like} onClick={() => handleLike(id)} alt="like" />
+        <Icon src={like} onClick={() => handleLike(_id)} alt="like" />
         <Icon src={comment} alt="comment" />
         <Icon src={send} alt="send" />
         <Col>

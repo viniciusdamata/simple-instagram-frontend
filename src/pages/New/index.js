@@ -17,22 +17,22 @@ export default function New() {
     place: "",
     description: "",
     hashtags: "",
-    picture: "",
+    image: "",
   });
 
   const onPictureUpload = e => {
-    const newPicture = e.target.files[0];
-    setNewPost({ ...newPost, picture: newPicture });
-    displayUploadedPicture(newPicture);
+    const newImage = e.target.files[0];
+    setNewPost({ ...newPost, image: newImage });
+    displayUploadedPicture(newImage);
   };
 
-  const displayUploadedPicture = newPicture => {
-    if (FileReader && newPicture) {
+  const displayUploadedPicture = image => {
+    if (FileReader && image) {
       var fr = new FileReader();
       fr.onload = () => {
         document.getElementById("upload-preview").src = fr.result;
       };
-      fr.readAsDataURL(newPicture);
+      fr.readAsDataURL(image);
     }
     // Not supported
     else {
@@ -44,13 +44,12 @@ export default function New() {
     hiddenFileInput.current.click();
   };
 
-  const handleCreateNewPost = (e) => {
-    e.preventDefault()
+  const handleCreateNewPost = e => {
+    e.preventDefault();
+    console.log("New -> newPost", newPost)
     dispatch({
-      type: "CREATE_POST",
-      payload: {
-        newPost: { ...newPost, id: parseInt(Math.random() * 999) },
-      },
+      type: "ASYNC_STORE_POST",
+      payload: newPost,
     });
   };
 

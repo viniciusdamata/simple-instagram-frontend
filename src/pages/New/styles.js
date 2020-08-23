@@ -16,7 +16,7 @@ export const PreviewImage = styled.div`
 
 export const UploadButton = styled.button`
   padding: 5px;
-  border: 1px solid;
+  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   border-radius: 6px;
   height: 50px;
   width: 200px;
@@ -50,6 +50,7 @@ export const InputContainer = styled.div`
   label {
     font-weight: bold;
     font-size: 20px;
+    margin-bottom:5px;
   }
   input {
     padding: 10px;
