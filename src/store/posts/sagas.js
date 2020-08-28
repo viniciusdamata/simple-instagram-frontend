@@ -13,19 +13,15 @@ function* fetchPostsRequest() {
   try {
     const response = yield call(posts.index);
     yield put(fetchPosts(response.data));
-  } catch (error) {
-    console.log("function*fetchPostsRequest -> error", error);
-  }
+  } catch (error) {}
 }
 
 function* likePostRequest(action) {
   try {
     const response = yield call(posts.like, action.payload);
-    console.log("function*likePostRequest -> response", response);
+
     yield put(likePost(response.data));
-  } catch (error) {
-    console.log("function*fetchPostsRequest -> error", error);
-  }
+  } catch (error) {}
 }
 
 function* storePostRequest(action) {
@@ -33,10 +29,9 @@ function* storePostRequest(action) {
     yield put(storePostLoading());
     const response = yield call(posts.store, action.payload);
     yield put(storePostLoadingEnd());
-    console.log("function*likePostRequest -> response", response);
     yield put(storePost(response.data));
   } catch (error) {
-    console.log("function*fetchPostsRequest -> error", error);
+    yield put(storePostLoadingEnd());
   }
 }
 

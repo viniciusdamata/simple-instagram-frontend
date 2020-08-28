@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 function posts(state = INITIAL_STATE, action) {
   switch (action.type) {
     case "FETCH_POSTS":
-      console.log("posts -> action", action);
       return {
         ...state,
         posts: action.payload,
