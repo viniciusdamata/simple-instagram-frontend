@@ -1,4 +1,6 @@
 import { takeLatest, call, put, all } from "redux-saga/effects";
+import history from "../../history";
+
 import {
   fetchPosts,
   storePost,
@@ -28,6 +30,7 @@ function* storePostRequest(action) {
   try {
     yield put(storePostLoading());
     const response = yield call(posts.store, action.payload);
+    yield call(action.meta.redirect, action.meta.path);
     yield put(storePostLoadingEnd());
     yield put(storePost(response.data));
   } catch (error) {

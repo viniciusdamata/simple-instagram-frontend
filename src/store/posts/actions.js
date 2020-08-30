@@ -24,8 +24,8 @@ export function asyncFetchPosts(data) {
   return { type: "ASYNC_FETCH_POSTS", payload: data };
 }
 
-export function asyncStorePost(data) {
-  return { type: "ASYNC_STORE_POST", payload: data };
+export function asyncStorePost(data, meta) {
+  return { type: "ASYNC_STORE_POST", payload: data, meta };
 }
 
 export function asyncLikePost(postId) {

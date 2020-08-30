@@ -18,7 +18,7 @@ import {
   Row,
 } from "./styles";
 
-import {asyncLikePost} from "../../store/posts/actions"
+import { asyncLikePost } from "../../store/posts/actions";
 
 export default function Card({
   author,
@@ -48,7 +48,15 @@ export default function Card({
         <img src={more} alt="mais" />
       </CardHeader>
 
-      <img className="post" src={image} alt="img" />
+      <img
+        className="post"
+        src={image}
+        alt="img"
+        onDoubleClick={e => {
+          e.preventDefault();
+          handleLike(_id);
+        }}
+      />
 
       <CardFooter>
         <Icon src={like} onClick={() => handleLike(_id)} alt="like" />

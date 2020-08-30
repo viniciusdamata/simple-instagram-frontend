@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import imgPlaceholder from "../../assets/imgplaceholder.png";
@@ -9,13 +9,15 @@ import {
   FormNewPost,
   UploadButton,
   InputContainer,
+  Title,
+  Subtitle,
 } from "./styles";
 
 import { asyncStorePost } from "../../store/posts/actions";
 
 export default function New() {
   //hooks
-  const history = useHistory()
+  const history = useHistory();
   const hiddenFileInput = useRef(null);
   const dispatch = useDispatch();
   const [newPost, setNewPost] = useState({
@@ -54,7 +56,7 @@ export default function New() {
 
   const handleCreateNewPost = e => {
     e.preventDefault();
-    dispatch(asyncStorePost(newPost));
+    dispatch(asyncStorePost(newPost, { redirect: history.push, path: "/" }));
     setNewPost({
       author: "",
       place: "",
@@ -62,8 +64,6 @@ export default function New() {
       hashtags: "",
       image: "",
     });
-    history.push("/")
-    
   };
 
   function handleInputChange(e) {
@@ -73,6 +73,8 @@ export default function New() {
 
   return (
     <div>
+      <Title>Novo post</Title>
+      <Subtitle>Escolha a imagem:</Subtitle>
       <PreviewImage onClick={handleClick}>
         <img
           id="upload-preview"

@@ -4,9 +4,8 @@ import styled from "styled-components";
 
 export const PostList = styled.section`
   width: 100%;
-  height: 100%;
 
-  @media (min-width: 600px) {
+  @media (min-width: 599px) {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -17,7 +16,6 @@ export const LoadingPosts = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* text-align:center; */
   height: 100vh;
   font-size: 20px;
 `;

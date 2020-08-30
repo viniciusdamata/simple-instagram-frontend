@@ -6,7 +6,7 @@ import { rootSagas } from "./rootSagas";
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware];
-
+// TODO Remover react_dev_tools_backend
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
