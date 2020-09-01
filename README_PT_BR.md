@@ -1,12 +1,12 @@
-# Simple frontend inspired by Instagram
+# Frontend simples inspirado no funcionamento do Instagram
 
 #### :page_facing_up: Features
 
-- posts creation
-- posts list
-- posts like with double tap to like
+- criação de posts
+- listagem de posts
+- like nos posts com double tap to like
 
-#### :computer: ​Utilized Stack
+#### :computer: ​Stack utilizada
 
 - React.js
 - React router
@@ -17,8 +17,8 @@
 
 #### :rocket: Roadmap
 
-- Double tap to like animation
-- Organize redux actions
+- Animação de double tap to like
+- organizar as actions do redux
 
 #### :iphone: Screenshots
 
