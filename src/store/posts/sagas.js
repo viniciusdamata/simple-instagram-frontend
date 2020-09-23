@@ -1,5 +1,4 @@
 import { takeLatest, call, put, all } from "redux-saga/effects";
-import history from "../../history";
 
 import {
   fetchPosts,
@@ -30,8 +29,8 @@ function* storePostRequest(action) {
   try {
     yield put(storePostLoading());
     const response = yield call(posts.store, action.payload);
-    yield call(action.meta.redirect, action.meta.path);
     yield put(storePostLoadingEnd());
+    yield call(action.meta.redirect, action.meta.path);
     yield put(storePost(response.data));
   } catch (error) {
     yield put(storePostLoadingEnd());
@@ -50,10 +49,8 @@ export function* watchLikePostsRequest() {
   yield takeLatest("ASYNC_LIKE_POST", likePostRequest);
 }
 
-export default function* postSagas() {
-  yield all([
-    watchFetchPostsRequest(),
-    watchLikePostsRequest(),
-    watchStorePostsRequest(),
-  ]);
-}
+export default all([
+  takeLatest("ASYNC_STORE_POST", storePostRequest),
+  takeLatest("ASYNC_FETCH_POSTS", fetchPostsRequest),
+  takeLatest("ASYNC_LIKE_POST", likePostRequest),
+]);

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import imgPlaceholder from "../../assets/imgplaceholder.png";
+import spinner from "../../assets/spinner.svg";
 
 import {
   PreviewImage,
@@ -27,7 +28,6 @@ export default function New() {
     hashtags: "",
     image: "",
   });
-
   const storePostLoading = useSelector(state => state.posts.loadingSubmit);
 
   const onPictureUpload = e => {
@@ -38,7 +38,7 @@ export default function New() {
 
   const displayUploadedPicture = image => {
     if (FileReader && image) {
-      var fr = new FileReader();
+      const fr = new FileReader();
       fr.onload = () => {
         document.getElementById("upload-preview").src = fr.result;
       };
@@ -65,10 +65,14 @@ export default function New() {
       image: "",
     });
   };
-
+  
+  let timeout = null;
   function handleInputChange(e) {
     const { name, value } = e.target;
-    setNewPost({ ...newPost, [name]: value });
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      setNewPost({ ...newPost, [name]: value });
+    }, 100);
   }
 
   return (
@@ -100,6 +104,7 @@ export default function New() {
               name="author"
               placeholder="digite o nome do autor"
               onChange={handleInputChange}
+              value={newPost.author}
             />
           </InputContainer>
           <InputContainer>
@@ -109,6 +114,7 @@ export default function New() {
               name="place"
               placeholder="digite o local"
               onChange={handleInputChange}
+              value={newPost.place}
             />
           </InputContainer>
           <InputContainer>
@@ -118,6 +124,7 @@ export default function New() {
               name="description"
               placeholder="digite a descricao"
               onChange={handleInputChange}
+              value={newPost.description}
             />
           </InputContainer>
           <InputContainer>
@@ -127,10 +134,11 @@ export default function New() {
               name="hashtags"
               placeholder="digite as hashtags"
               onChange={handleInputChange}
+              value={newPost.hashtags}
             />
           </InputContainer>
           <UploadButton onClick={handleCreateNewPost}>
-            {!storePostLoading ? "Salvar" : "Loading..."}
+            {!storePostLoading ? "Salvar" : <img height="50" src={spinner} alt="" />}
           </UploadButton>
         </FormNewPost>
       </div>

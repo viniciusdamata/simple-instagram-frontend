@@ -6,6 +6,8 @@ import { PostList, LoadingPosts } from "./styles";
 
 import { asyncFetchPosts } from "../../store/posts/actions";
 
+import spinner from "../../assets/spinner.svg";
+
 export default function Feed() {
   const dispatch = useDispatch();
   const posts = useSelector(state => state.posts.posts);
@@ -28,6 +30,10 @@ export default function Feed() {
       </PostList>
     );
   } else {
-    return <LoadingPosts>Loading...</LoadingPosts>;
+    return (
+      <LoadingPosts>
+        <img src={spinner} alt="" />
+      </LoadingPosts>
+    );
   }
 }
