@@ -8,7 +8,9 @@ import {
   likePost,
 } from "./actions";
 
-import { posts } from "../../services/posts.service";
+import { posts } from "../../../services/posts.service";
+
+import history from "../../../config/history";
 
 function* fetchPostsRequest() {
   try {
@@ -30,7 +32,7 @@ function* storePostRequest(action) {
     yield put(storePostLoading());
     const response = yield call(posts.store, action.payload);
     yield put(storePostLoadingEnd());
-    yield call(action.meta.redirect, action.meta.path);
+    history.push(action.meta.redirectPath);
     yield put(storePost(response.data));
   } catch (error) {
     yield put(storePostLoadingEnd());

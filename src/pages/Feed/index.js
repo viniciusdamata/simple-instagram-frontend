@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Card from "../../components/Card";
 import { PostList, LoadingPosts } from "./styles";
 
-import { asyncFetchPosts } from "../../store/posts/actions";
+import { asyncFetchPosts } from "../../store/modules/posts/actions";
 
 import spinner from "../../assets/spinner.svg";
 
@@ -32,7 +32,7 @@ export default function Feed() {
   } else {
     return (
       <LoadingPosts>
-        <img src={spinner} alt="" />
+        <img height="50" src={spinner} alt="" />
       </LoadingPosts>
     );
   }

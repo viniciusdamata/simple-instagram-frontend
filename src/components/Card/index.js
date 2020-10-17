@@ -18,7 +18,7 @@ import {
   Row,
 } from "./styles";
 
-import { asyncLikePost } from "../../store/posts/actions";
+import { asyncLikePost } from "../../store/modules/posts/actions";
 
 export default function Card({
   author,

@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import imgPlaceholder from "../../assets/imgplaceholder.png";
@@ -14,11 +13,10 @@ import {
   Subtitle,
 } from "./styles";
 
-import { asyncStorePost } from "../../store/posts/actions";
+import { asyncStorePost } from "../../store/modules/posts/actions";
 
 export default function New() {
   //hooks
-  const history = useHistory();
   const hiddenFileInput = useRef(null);
   const dispatch = useDispatch();
   const [newPost, setNewPost] = useState({
@@ -56,7 +54,7 @@ export default function New() {
 
   const handleCreateNewPost = e => {
     e.preventDefault();
-    dispatch(asyncStorePost(newPost, { redirect: history.push, path: "/" }));
+    dispatch(asyncStorePost(newPost, { redirectPath: "/" }));
     setNewPost({
       author: "",
       place: "",
@@ -65,7 +63,7 @@ export default function New() {
       image: "",
     });
   };
-  
+
   let timeout = null;
   function handleInputChange(e) {
     const { name, value } = e.target;
@@ -138,7 +136,11 @@ export default function New() {
             />
           </InputContainer>
           <UploadButton onClick={handleCreateNewPost}>
-            {!storePostLoading ? "Salvar" : <img height="50" src={spinner} alt="" />}
+            {!storePostLoading ? (
+              "Salvar"
+            ) : (
+              <img height="50" src={spinner} alt="" />
+            )}
           </UploadButton>
         </FormNewPost>
       </div>
